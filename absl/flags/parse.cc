@@ -99,6 +99,8 @@ struct SpecifiedFlagsCompare {
 ABSL_NAMESPACE_END
 }  // namespace absl
 
+// These flags influence how command line flags are parsed and are only intended
+// to be set on the command line.  Avoid reading or setting them from C++ code.
 ABSL_FLAG(std::vector<std::string>, flagfile, {},
           "comma-separated list of files to load flags from")
     .OnUpdate([]() {
@@ -148,6 +150,8 @@ ABSL_FLAG(std::vector<std::string>, tryfromenv, {},
       absl::flags_internal::tryfromenv_needs_processing = true;
     });
 
+// Rather than reading or setting --undefok from C++ code, please consider using
+// ABSL_RETIRED_FLAG instead.
 ABSL_FLAG(std::vector<std::string>, undefok, {},
           "comma-separated list of flag names that it is okay to specify "
           "on the command line even if the program does not define a flag "
@@ -664,8 +668,7 @@ struct BestHints {
 // Return the list of flags with the smallest Damerau-Levenshtein distance to
 // the given flag.
 std::vector<std::string> GetMisspellingHints(const absl::string_view flag) {
-  auto fsize=flag.size() / 2 + 1;
-  const size_t maxCutoff = fsize>kMaxDistance?kMaxDistance:fsize;
+  const size_t maxCutoff = std::min(flag.size() / 2 + 1, kMaxDistance);
   auto undefok = absl::GetFlag(FLAGS_undefok);
   BestHints best_hints(static_cast<uint8_t>(maxCutoff));
   flags_internal::ForEachFlag([&](const CommandLineFlag& f) {

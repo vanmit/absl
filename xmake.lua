@@ -1,6 +1,6 @@
 set_project("absl")
 
-set_languages("c99","cxx11")
+set_languages("c99","cxx14")
 
 add_rules("mode.debug","mode.release", "mode.minsizerel")
 

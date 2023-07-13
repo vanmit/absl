@@ -1,10 +1,17 @@
+'''
+Author: vanmit
+LastEditors: vanmit
+Date: 2023-05-17 00:39:05
+LastEditTime: 2023-05-22 10:14:31
+Descripttion: 
+'''
 import os
 import fnmatch
 import shutil
 
 # 指定匹配规则
-match_rules = ["*_test.cc","*_test_*.cc", "*_benchmark.cc","*_testing.cc","*_testing.h","*_test.h","chi_square.cc","chi_square.h",
-               "*_test_*.cc","test_*.cc","*_mock_*.cc","*_benchmarks.cc","benchmarks.cc"]
+match_rules = ["*_test.cc","*_test_*.cc", "*_benchmark.cc","*_testing.cc","*_testing.h","*_test.h","*_test.cc","chi_square.cc","chi_square.h","*_mock_*.h","*_test_*.h","*_test.cc",
+               "*_test_*.cc","test_*.cc","*_mock_*.cc","*_benchmarks.cc","benchmarks.cc","*_benchmark.lds"]
 
 # 获取当前目录
 current_dir = os.getcwd()
